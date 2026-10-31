@@ -1,0 +1,21 @@
+{
+  "_README": "Authority directory for the Hyderabad pilot. Departments below are real bodies; their CATEGORIES are the team's best reading and must be checked. Add real, published complaint email addresses under 'channels' ONLY after you have sent a real test message and recorded the outcome in 'verification_note'. Channels without a verification_note are never used in live mode. 'parent' is the escalation authority. Do not commit addresses you have not verified.",
+  "authorities": [
+    {
+      "slug": "ghmc",
+      "name": "Greater Hyderabad Municipal Corporation (GHMC)",
+      "categories": ["road_damage", "garbage", "streetlight", "drainage"],
+      "source_url": "https://www.ghmc.gov.in",
+      "notes": "VERIFY: which GHMC wing/zone owns each category and the official grievance email for your demo ward.",
+      "channels": []
+    },
+    {
+      "slug": "hmwssb",
+      "name": "Hyderabad Metropolitan Water Supply & Sewerage Board (HMWSSB)",
+      "categories": ["water_leak", "drainage"],
+      "source_url": "https://www.hmwssb.telangana.gov.in",
+      "notes": "VERIFY: official grievance email/contact for water leaks and sewer overflow. Sewer overflow is typically HMWSSB; stormwater drains GHMC.",
+      "channels": []
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CivicPulse – {{ report.ref_no }}</title>
+<style>
+  body{font-family:system-ui,sans-serif;max-width:640px;margin:0 auto;padding:16px;color:#1b2430;background:#f7f8fa}
+  h1{font-size:1.25rem;margin:.2rem 0}
+  .card{background:#fff;border:1px solid #dde2e8;border-radius:12px;padding:14px;margin:12px 0}
+  .pill{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.8rem;background:#e8eef7}
+  .sev-critical{background:#fde2e2}.sev-high{background:#ffe9d6}.sev-medium{background:#fff6cf}.sev-low{background:#e3f4e6}
+  button{font-size:1rem;padding:12px 14px;border-radius:10px;border:0;background:#1f5fbf;color:#fff;margin:4px 4px 4px 0;min-height:44px}
+  button:disabled{background:#b9c2cf}
+  textarea,input[type=file]{width:100%;box-sizing:border-box;margin:6px 0}
+  .ok{color:#1d7a3a}.err{color:#b3261e}
+  img{max-width:100%;border-radius:8px}
+  ol{padding-left:18px}
+  small{color:#5b6675}
+</style>
+</head>
+<body>
+<h1>{{ report.ref_no }}</h1>
+<small>Complaint sent to <b>{{ dispatch.authority.name }}</b> via CivicPulse</small>
+
+{% if message %}<p class="ok">{{ message }}</p>{% endif %}
+{% if error %}<p class="err">{{ error }}</p>{% endif %}
+
+<div class="card">
+  <span class="pill sev-{{ report.severity_level }}">{{ report.severity_level|upper }}{% if report.severity_score is not None %} · {{ report.severity_score }}/100{% endif %}</span>
+  <span class="pill">{{ report.get_category_display }}</span>
+  <span class="pill">Status: {{ report.status }}</span>
+  <p>{{ report.description|default:report.text }}</p>
+  <p><small>{{ report.rationale }}</small></p>
+  <p><b>Location:</b> {{ report.address|default:"see map" }}<br>
+     <a href="https://www.openstreetmap.org/?mlat={{ report.lat }}&mlon={{ report.lng }}#map=18/{{ report.lat }}/{{ report.lng }}">Open map ({{ report.lat|floatformat:5 }}, {{ report.lng|floatformat:5 }})</a></p>
+  {% if report.cluster %}<p><b>Citizens affected:</b> {{ report.cluster.affected_count }}</p>{% endif %}
+  {% if report.image %}<img src="{{ report.image.url }}" alt="Evidence photo">{% endif %}
+  {% if report.transcript_en %}<p><b>Citizen voice note (translated):</b> {{ report.transcript_en }}</p>{% endif %}
+</div>
+
+<form method="post" enctype="multipart/form-data" class="card">
+  {% csrf_token %}
+  <b>Update status (no login needed)</b>
+  <textarea name="note" rows="2" placeholder="Optional note for the citizen (e.g. crew assigned, expected date)"></textarea>
+  <label>Proof of resolution photo (optional, for “Resolved”)<input type="file" name="proof" accept="image/*" capture="environment"></label>
+  <button name="action" value="acknowledge" {% if not can.acknowledge %}disabled{% endif %}>Acknowledge</button>
+  <button name="action" value="in_progress" {% if not can.in_progress %}disabled{% endif %}>In progress</button>
+  <button name="action" value="resolve" {% if not can.resolve %}disabled{% endif %}>Resolved</button>
+</form>
+
+<div class="card">
+  <b>Timeline</b>
+  <ol>{% for e in events %}<li>{{ e.at|date:"d M H:i" }} – {{ e.status }}{% if e.note %}: {{ e.note }}{% endif %}</li>{% endfor %}</ol>
+</div>
+<small>AI-generated severity is decision support and may be wrong. Anyone with this link can update the case; please do not forward it.</small>
+</body>
+</html>
