@@ -1,6 +1,12 @@
 {
-  "app": { "tagline": "Report a civic problem in seconds. See what happens next." },
-  "nav": { "report": "Report", "dashboard": "Dashboard", "mine": "My reports" },
+  "app": {
+    "tagline": "Report a civic problem in seconds. See what happens next."
+  },
+  "nav": {
+    "report": "Report",
+    "dashboard": "Dashboard",
+    "mine": "My reports"
+  },
   "report": {
     "title": "Report an issue",
     "photo": "Take or choose a photo",
@@ -66,9 +72,20 @@
     "merged": "Someone nearby already reported this. Your report was added to {{ref}} ({{n}} citizens affected).",
     "chooseCategory": "Choose the issue type"
   },
-  "severity": { "low": "Low", "medium": "Medium", "high": "High", "critical": "Critical" },
-  "routing": { "heading": "Sent to", "reason": "Why this department", "sandbox": "Test mode: delivered to the team test inbox, not a real department." },
-  "timeline": { "heading": "Timeline" },
+  "severity": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical"
+  },
+  "routing": {
+    "heading": "Sent to",
+    "reason": "Why this department",
+    "sandbox": "Test mode: delivered to the team test inbox, not a real department."
+  },
+  "timeline": {
+    "heading": "Timeline"
+  },
   "resolution": {
     "heading": "Was it fixed?",
     "confirm": "Yes, it is fixed",
@@ -98,6 +115,32 @@
     "export": "Download open data (CSV)",
     "affected": "{{n}} citizens affected"
   },
-  "mine": { "title": "My reports", "empty": "Reports you submit from this phone appear here." },
-  "common": { "back": "Back", "retry": "Try again", "error": "Something went wrong.", "language": "Language" }
+  "mine": {
+    "title": "My reports",
+    "empty": "Reports you submit from this phone appear here."
+  },
+  "common": {
+    "back": "Back",
+    "retry": "Try again",
+    "error": "Something went wrong.",
+    "language": "Language"
+  },
+  "landing": {
+    "headline": "Civic problems get reported, then disappear.",
+    "problem": "In Hyderabad, complaints are scattered across portals, phone lines and social media. Authorities see them in arrival order, not by danger, and citizens never find out what happened next.",
+    "cta": "Report a problem",
+    "dashboardLink": "See the public dashboard",
+    "p1t": "Scattered",
+    "p1d": "No single place to report, and no clear owner.",
+    "p2t": "Unranked",
+    "p2d": "A dangerous pothole waits behind a minor complaint.",
+    "p3t": "Invisible",
+    "p3d": "Nobody can see if a complaint was ever acknowledged or fixed.",
+    "howTitle": "How CivicPulse works",
+    "s1": "Snap a photo or speak in Telugu or English.",
+    "s2": "AI classifies the issue and scores how dangerous it is.",
+    "s3": "The right department is emailed a structured complaint.",
+    "s4": "Track every step on a public status page.",
+    "finalTitle": "See a problem? Report it in seconds."
+  }
 }

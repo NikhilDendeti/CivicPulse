@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { setLang } from "./lib/i18n";
 import { pendingCount, startAutoFlush } from "./lib/offlineQueue";
+import Logo from "./components/Logo";
+import LandingPage from "./pages/LandingPage";
 import DashboardPage from "./pages/DashboardPage";
 import MinePage from "./pages/MinePage";
 import ReportPage from "./pages/ReportPage";
@@ -12,6 +14,7 @@ export default function App() {
   const { t, i18n } = useTranslation();
   const [pending, setPending] = useState(0);
   const [toast, setToast] = useState("");
+  const isLanding = useLocation().pathname === "/";
 
   const refresh = useCallback(() => void pendingCount().then(setPending), []);
 
@@ -27,9 +30,9 @@ export default function App() {
   return (
     <>
       <header className="top">
-        <NavLink to="/" className="brand">CivicPulse</NavLink>
+        <NavLink to="/" className="brand"><Logo /></NavLink>
         <nav>
-          <NavLink to="/">{t("nav.report")}</NavLink>
+          <NavLink to="/report">{t("nav.report")}</NavLink>
           <NavLink to="/dashboard">{t("nav.dashboard")}</NavLink>
           <NavLink to="/mine">{t("nav.mine")}</NavLink>
         </nav>
@@ -39,9 +42,10 @@ export default function App() {
         </select>
       </header>
       {toast && <div className="toast" role="status">{toast}</div>}
-      <main>
+      <main className={isLanding ? "wide" : ""}>
         <Routes>
-          <Route path="/" element={<ReportPage pending={pending} onQueued={refresh} />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/report" element={<ReportPage pending={pending} onQueued={refresh} />} />
           <Route path="/r/:ref" element={<StatusPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/mine" element={<MinePage />} />
